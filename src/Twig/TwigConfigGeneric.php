@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Core\View\Twig;
 
+use Twig\Extension\ExtensionInterface;
+use Twig\TwigFilter;
 use Core\Interfaces\TwigConfig;
-use \Exception;
+use Core\View\ViewException;
 
 class TwigConfigGeneric implements TwigConfig
 {
 
     private array $config = [
+        'extensions' => [],
+        'filters' => [],
         'autoescape' => false,
         'charset' => 'utf-8',
         'strict_variables' => true,
@@ -23,7 +27,7 @@ class TwigConfigGeneric implements TwigConfig
         'rightDelimiterBlock' => '%}',
         'cacheDir' => '',
         'debug' => true,
-        'extensions' => []
+        'extension_dirs' => []
     ];
 
     public function setDelimitersVariable(string $left, string $right): self
@@ -73,7 +77,7 @@ class TwigConfigGeneric implements TwigConfig
 
     private function addExtensionsDir(string $dir): void
     {
-        $this->config['extensions'][] = $dir;
+        $this->config['extension_dirs'][] = $dir;
     }
 
     public function setAutoReload(bool $value): self
@@ -100,7 +104,7 @@ class TwigConfigGeneric implements TwigConfig
         if (in_array($value, $allowed)) {
             $this->config['autoescape'] = $value;
         } else {
-            throw new Exception("Allowed Twig autoescape items:" . implode(',', $allowed));
+            throw new ViewException("Allowed Twig autoescape items:" . implode(',', $allowed));
         }
         return $this;
     }
@@ -152,7 +156,7 @@ class TwigConfigGeneric implements TwigConfig
 
     public function getExtensionsDir(): array
     {
-        return $this->config['extensions'];
+        return $this->config['extension_dirs'];
     }
 
     public function getAutoReload(): bool
@@ -173,6 +177,28 @@ class TwigConfigGeneric implements TwigConfig
     public function getAutoEscape(): string|false
     {
         return $this->config['autoescape'];
+    }
+
+    public function getFilters(): array
+    {
+        return $this->config['filters'];
+    }
+
+    public function getExtensions(): array
+    {
+        return $this->config['extensions'];
+    }
+
+    public function addFilter(TwigFilter $filter): self
+    {
+        $this->config['filters'][] = $filter;
+        return $this;
+    }
+
+    public function addExtension(ExtensionInterface $extension): self
+    {
+        $this->config['extensions'][] = $extension;
+        return $this;
     }
 
 }

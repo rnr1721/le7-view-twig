@@ -32,6 +32,8 @@ class ViewTest extends PHPUnit\Framework\TestCase
     {
 
         $defConfig = [
+            'extensions' => [],
+            'filters' => [],
             'autoescape' => false,
             'charset' => 'utf-8',
             'strict_variables' => true,
@@ -44,7 +46,7 @@ class ViewTest extends PHPUnit\Framework\TestCase
             'rightDelimiterBlock' => '%}',
             'cacheDir' => '',
             'debug' => true,
-            'extensions' => []
+            'extension_dirs' => []
         ];
 
         $config = new TwigConfigGeneric();

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Core\Interfaces;
 
+use Twig\Extension\ExtensionInterface;
+use Twig\TwigFilter;
+
 interface TwigConfig
 {
 
@@ -181,4 +184,30 @@ interface TwigConfig
      * @return string|false
      */
     public function getAutoEscape(): string|false;
+
+    /**
+     * Get added Twig filters
+     * @return array
+     */
+    public function getFilters(): array;
+
+    /**
+     * Get added Twig extensions
+     * @return array
+     */
+    public function getExtensions(): array;
+
+    /**
+     * Add own twig filter
+     * @param TwigFilter $filter
+     * @return self
+     */
+    public function addFilter(TwigFilter $filter): self;
+
+    /**
+     * Add own twig extension
+     * @param ExtensionInterface $extension
+     * @return self
+     */
+    public function addExtension(ExtensionInterface $extension): self;
 }

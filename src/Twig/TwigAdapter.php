@@ -76,6 +76,18 @@ class TwigAdapter implements ViewAdapter
             ]
         ]);
 
+        $filters = $this->twigConfig->getFilters();
+
+        foreach ($filters as $filter) {
+            $twig->addFilter($filter);
+        }
+
+        $extensions = $this->twigConfig->getExtensions();
+
+        foreach ($extensions as $extension) {
+            $twig->addExtension($extension);
+        }
+
         return new TwigView(
                 $twig,
                 $this->webPage,
