@@ -5,10 +5,10 @@ namespace Core\View\Twig;
 use Core\Interfaces\View;
 use Core\Interfaces\WebPage;
 use Core\View\ViewTrait;
+use Core\View\ViewException;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\SimpleCache\CacheInterface;
-use Psr\Log\LoggerInterface;
 use Twig\Environment;
 use \Throwable;
 
@@ -18,7 +18,6 @@ class TwigView implements View
     use ViewTrait;
 
     private Environment $twig;
-    private LoggerInterface $logger;
     private WebPage $webPage;
 
     public function __construct(
@@ -26,8 +25,7 @@ class TwigView implements View
             WebPage $webPage,
             ServerRequestInterface $request,
             ResponseInterface $response,
-            CacheInterface $cache,
-            LoggerInterface $logger
+            CacheInterface $cache
     )
     {
         $this->twig = $twig;
@@ -35,7 +33,6 @@ class TwigView implements View
         $this->request = $request;
         $this->response = $response;
         $this->cache = $cache;
-        $this->logger = $logger;
     }
 
     /**
@@ -55,7 +52,7 @@ class TwigView implements View
             $this->clear();
             return $rendered;
         } catch (Throwable $e) {
-            $this->logger->debug($e);
+            throw new ViewException($e->getMessage());
         }
         return '';
     }

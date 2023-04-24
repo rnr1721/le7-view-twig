@@ -13,7 +13,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\SimpleCache\CacheInterface;
-use Psr\Log\LoggerInterface;
 
 class TwigAdapter implements ViewAdapter
 {
@@ -24,7 +23,6 @@ class TwigAdapter implements ViewAdapter
     protected ServerRequestInterface $request;
     protected ResponseFactoryInterface $responseFactory;
     protected CacheInterface $cache;
-    protected LoggerInterface $logger;
 
     public function __construct(
             TwigConfig $twigConfig,
@@ -32,8 +30,7 @@ class TwigAdapter implements ViewAdapter
             WebPage $webPage,
             ServerRequestInterface $request,
             ResponseFactoryInterface $responseFactory,
-            CacheInterface $cache,
-            LoggerInterface $logger
+            CacheInterface $cache
     )
     {
         $this->twigConfig = $twigConfig;
@@ -42,7 +39,6 @@ class TwigAdapter implements ViewAdapter
         $this->request = $request;
         $this->responseFactory = $responseFactory;
         $this->cache = $cache;
-        $this->logger = $logger;
     }
 
     public function getView(array|string|null $templatePath = null, ?ResponseInterface $response = null): View
@@ -85,8 +81,7 @@ class TwigAdapter implements ViewAdapter
                 $this->webPage,
                 $this->request,
                 $response,
-                $this->cache,
-                $this->logger
+                $this->cache
         );
     }
 

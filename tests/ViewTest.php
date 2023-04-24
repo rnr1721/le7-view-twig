@@ -99,7 +99,6 @@ class ViewTest extends PHPUnit\Framework\TestCase
         if (empty($cache)) {
             $cache = $this->megaFactory->getCache()->getFileCache();
         }
-        $logger = $this->megaFactory->getLogger(true, 'test.log');
 
         $config = $this->getTwigConfig();
         $viewTopology = $this->getViewTopology();
@@ -107,7 +106,7 @@ class ViewTest extends PHPUnit\Framework\TestCase
         $request = $this->megaFactory->getServer()->getServerRequest('https://example.com/page/open', 'GET');
         $responseFactory = $this->megaFactory->getServer()->getResponseFactory();
 
-        return new TwigAdapter($config, $viewTopology, $webPage, $request, $responseFactory, $cache, $logger);
+        return new TwigAdapter($config, $viewTopology, $webPage, $request, $responseFactory, $cache);
     }
 
     public function getViewTopology(): ViewTopology
