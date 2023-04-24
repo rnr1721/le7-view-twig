@@ -92,13 +92,13 @@ interface TwigConfig
      * escape all output. By default, this option is set to html and handles
      * special HTML characters such as <, >, ", ', and &. Other possible
      * values for this option are:
-     * js: escapes data for use in a JavaScript context.
-     * css: escapes data for use in CSS context.
-     * url: escapes data for use in a URL context.
+     * "html", "js", "css", "url", "html_attr", "xml" or true 
      * If you want to disable auto-escaping, set the autoescape option to false.
+     * @param string|array $field
+     * @param bool $value
      * @return self
      */
-    public function setAutoEscape(string|array $value): self;
+    public function setAutoEscape(string|array $field, bool $value = true): self;
 
     /**
      * Get config as single array

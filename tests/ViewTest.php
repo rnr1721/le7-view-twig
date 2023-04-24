@@ -52,7 +52,7 @@ class ViewTest extends PHPUnit\Framework\TestCase
         $this->assertEquals($config->getConfig(), $defConfig);
 
         $config->setAutoEscape('html,js,url');
-        $this->assertEquals(['html', 'js', 'url'], $config->getAutoEscape());
+        $this->assertEquals(['html' => true, 'js' => true, 'url' => true], $config->getAutoEscape());
         $config->setAutoReload(false);
         $this->assertFalse($config->getAutoReload());
         $config->setCacheDir('/my/cache/dir');

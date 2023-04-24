@@ -94,16 +94,16 @@ class TwigConfigGeneric implements TwigConfig
         return $this;
     }
 
-    public function setAutoEscape(string|array $value): self
+    public function setAutoEscape(string|array $field, bool $value = true): self
     {
-        $allowed = ['html', 'css', 'js', 'url'];
-        if (is_string($value)) {
-            $value = explode(',', $value);
+        $allowed = ['html', 'css', 'js', 'url', 'html_attr', 'xml'];
+        if (is_string($field)) {
+            $field = explode(',', $field);
         }
-        foreach ($value as $item) {
-            if (!in_array($item, $this->config['autoescape'])) {
+        foreach ($field as $item) {
+            if (!array_key_exists($item, $this->config['autoescape'])) {
                 if (in_array($item, $allowed)) {
-                    $this->config['autoescape'][] = $item;
+                    $this->config['autoescape'][$item] = $value;
                 } else {
                     throw new Exception("Allowed Twig autoescape items:" . implode(',', $allowed));
                 }
