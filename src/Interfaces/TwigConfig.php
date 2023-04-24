@@ -85,20 +85,18 @@ interface TwigConfig
     public function setCharSet(string $charset): self;
 
     /**
-     * The autoescape setting in Twig determines whether output should be
-     * automatically escaped to prevent XSS attacks and other security
-     * vulnerabilities.
-     * If the autoescape option is set to true, then Twig will automatically
-     * escape all output. By default, this option is set to html and handles
-     * special HTML characters such as <, >, ", ', and &. Other possible
-     * values for this option are:
-     * "html", "js", "css", "url", "html_attr", "xml" or true 
-     * If you want to disable auto-escaping, set the autoescape option to false.
-     * @param string|array $field
-     * @param bool $value
+     * Sets the default auto-escaping strategy (name, html, js, css, url,
+     * html_attr, or a PHP callback that takes the template "filename" and
+     * returns the escaping strategy to use -- the callback cannot be a
+     * function name to avoid collision with built-in escaping strategies);
+     * set it to false to disable auto-escaping. The name escaping strategy
+     * determines the escaping strategy to use for a template based on the
+     * template filename extension (this strategy does not incur any overhead
+     * at runtime as auto-escaping is done at compilation time.)
+     * @param string $value
      * @return self
      */
-    public function setAutoEscape(string|array $field, bool $value = true): self;
+    public function setAutoEscape(string $value): self;
 
     /**
      * Get config as single array
@@ -180,7 +178,7 @@ interface TwigConfig
 
     /**
      * Get AutoEscape option
-     * @return array|false
+     * @return string|false
      */
-    public function getAutoEscape(): array|false;
+    public function getAutoEscape(): string|false;
 }

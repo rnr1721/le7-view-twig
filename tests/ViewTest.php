@@ -32,7 +32,7 @@ class ViewTest extends PHPUnit\Framework\TestCase
     {
 
         $defConfig = [
-            'autoescape' => [],
+            'autoescape' => false,
             'charset' => 'utf-8',
             'strict_variables' => true,
             'autoreload' => true,
@@ -51,8 +51,8 @@ class ViewTest extends PHPUnit\Framework\TestCase
 
         $this->assertEquals($config->getConfig(), $defConfig);
 
-        $config->setAutoEscape('html,js,url');
-        $this->assertEquals(['html' => true, 'js' => true, 'url' => true], $config->getAutoEscape());
+        $config->setAutoEscape('html');
+        $this->assertEquals('html', $config->getAutoEscape());
         $config->setAutoReload(false);
         $this->assertFalse($config->getAutoReload());
         $config->setCacheDir('/my/cache/dir');

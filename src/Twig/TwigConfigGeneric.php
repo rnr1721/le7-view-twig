@@ -11,7 +11,7 @@ class TwigConfigGeneric implements TwigConfig
 {
 
     private array $config = [
-        'autoescape' => [],
+        'autoescape' => false,
         'charset' => 'utf-8',
         'strict_variables' => true,
         'autoreload' => true,
@@ -94,20 +94,13 @@ class TwigConfigGeneric implements TwigConfig
         return $this;
     }
 
-    public function setAutoEscape(string|array $field, bool $value = true): self
+    public function setAutoEscape(string $value): self
     {
-        $allowed = ['html', 'css', 'js', 'url', 'html_attr', 'xml'];
-        if (is_string($field)) {
-            $field = explode(',', $field);
-        }
-        foreach ($field as $item) {
-            if (!array_key_exists($item, $this->config['autoescape'])) {
-                if (in_array($item, $allowed)) {
-                    $this->config['autoescape'][$item] = $value;
-                } else {
-                    throw new Exception("Allowed Twig autoescape items:" . implode(',', $allowed));
-                }
-            }
+        $allowed = ['html', 'css', 'js', 'url', 'html_attr'];
+        if (in_array($value, $allowed)) {
+            $this->config['autoescape'] = $value;
+        } else {
+            throw new Exception("Allowed Twig autoescape items:" . implode(',', $allowed));
         }
         return $this;
     }
@@ -177,11 +170,8 @@ class TwigConfigGeneric implements TwigConfig
         return $this->config['charset'];
     }
 
-    public function getAutoEscape(): array|false
+    public function getAutoEscape(): string|false
     {
-        if (count($this->config['autoescape']) === 0) {
-            return false;
-        }
         return $this->config['autoescape'];
     }
 

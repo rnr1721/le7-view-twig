@@ -54,7 +54,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
         $twigConfig = new TwigConfigGeneric();
         $twigConfig->setCacheDir('/path-to-cache');
-        $twigConfig->setAutoEscape('html,js,url');
+        $twigConfig->setAutoEscape('html');
         $twigConfig->setDebug(true);
         $twigConfig->setAutoReload(true);
         // $twigConfig->.... Set other Twig settings here
