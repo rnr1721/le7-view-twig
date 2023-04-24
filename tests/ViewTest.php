@@ -32,6 +32,7 @@ class ViewTest extends PHPUnit\Framework\TestCase
     {
 
         $defConfig = [
+            'functions' => [],
             'extensions' => [],
             'filters' => [],
             'autoescape' => false,

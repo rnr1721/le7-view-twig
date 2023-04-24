@@ -76,15 +76,15 @@ class TwigAdapter implements ViewAdapter
             ]
         ]);
 
-        $filters = $this->twigConfig->getFilters();
-
-        foreach ($filters as $filter) {
+        foreach ($this->twigConfig->getFilters() as $filter) {
             $twig->addFilter($filter);
         }
 
-        $extensions = $this->twigConfig->getExtensions();
+        foreach ($this->twigConfig->getFunctions() as $function) {
+            $twig->addFunction($function);
+        }
 
-        foreach ($extensions as $extension) {
+        foreach ($this->twigConfig->getExtensions() as $extension) {
             $twig->addExtension($extension);
         }
 

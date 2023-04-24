@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Core\Interfaces;
 
 use Twig\Extension\ExtensionInterface;
+use Twig\TwigFunction;
 use Twig\TwigFilter;
 
 interface TwigConfig
@@ -198,6 +199,12 @@ interface TwigConfig
     public function getExtensions(): array;
 
     /**
+     * Get added Twig functions
+     * @return array
+     */
+    public function getFunctions(): array;
+
+    /**
      * Add own twig filter
      * @param TwigFilter $filter
      * @return self
@@ -210,4 +217,11 @@ interface TwigConfig
      * @return self
      */
     public function addExtension(ExtensionInterface $extension): self;
+
+    /**
+     * Add own twig function
+     * @param TwigFunction $function
+     * @return self
+     */
+    public function addFunction(TwigFunction $function): self;
 }

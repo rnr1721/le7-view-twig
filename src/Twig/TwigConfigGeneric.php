@@ -6,6 +6,7 @@ namespace Core\View\Twig;
 
 use Twig\Extension\ExtensionInterface;
 use Twig\TwigFilter;
+use Twig\TwigFunction;
 use Core\Interfaces\TwigConfig;
 use Core\View\ViewException;
 
@@ -13,6 +14,7 @@ class TwigConfigGeneric implements TwigConfig
 {
 
     private array $config = [
+        'functions' => [],
         'extensions' => [],
         'filters' => [],
         'autoescape' => false,
@@ -199,6 +201,17 @@ class TwigConfigGeneric implements TwigConfig
     {
         $this->config['extensions'][] = $extension;
         return $this;
+    }
+
+    public function addFunction(TwigFunction $function): self
+    {
+        $this->config['functions'][] = $function;
+        return $this;
+    }
+
+    public function getFunctions(): array
+    {
+        return $this->config['functions'];
     }
 
 }
