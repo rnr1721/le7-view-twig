@@ -33,7 +33,9 @@
         "nyholm/psr7-server": "^1.0",
         "rnr1721/le7-cache": "^1.0",
         "rnr1721/le7-logger": "^1.0",
-        "rnr1721/le7-testing": "^1.0"
+        "rnr1721/le7-testing": "^1.0",
+        "rnr1721/le7-event-manager": "^1.0",
+        "php-di/php-di": "^7.0"
     },
     "scripts": {
         "test": [

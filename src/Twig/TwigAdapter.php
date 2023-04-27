@@ -9,6 +9,7 @@ use Core\Interfaces\ViewTopology;
 use Core\Interfaces\ViewAdapter;
 use Core\Interfaces\WebPage;
 use Core\Interfaces\TwigConfig;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -23,6 +24,7 @@ class TwigAdapter implements ViewAdapter
     protected ServerRequestInterface $request;
     protected ResponseFactoryInterface $responseFactory;
     protected CacheInterface $cache;
+    protected EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
             TwigConfig $twigConfig,
@@ -30,7 +32,8 @@ class TwigAdapter implements ViewAdapter
             WebPage $webPage,
             ServerRequestInterface $request,
             ResponseFactoryInterface $responseFactory,
-            CacheInterface $cache
+            CacheInterface $cache,
+            EventDispatcherInterface $eventDispatcher
     )
     {
         $this->twigConfig = $twigConfig;
@@ -39,6 +42,7 @@ class TwigAdapter implements ViewAdapter
         $this->request = $request;
         $this->responseFactory = $responseFactory;
         $this->cache = $cache;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function getView(array|string|null $templatePath = null, ?ResponseInterface $response = null): View
@@ -93,7 +97,8 @@ class TwigAdapter implements ViewAdapter
                 $this->webPage,
                 $this->request,
                 $response,
-                $this->cache
+                $this->cache,
+                $this->eventDispatcher
         );
     }
 

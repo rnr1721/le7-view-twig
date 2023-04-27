@@ -8,6 +8,10 @@ use Core\View\ViewTopologyGeneric;
 use Core\Interfaces\ViewAdapter;
 use Core\View\WebPageGeneric;
 use Core\Testing\MegaFactory;
+use Core\EventDispatcher\EventDispatcher;
+use Core\EventDispatcher\Providers\ListenerProviderDefault;
+use Psr\Container\ContainerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\SimpleCache\CacheInterface;
 
 require_once 'vendor/autoload.php';
@@ -108,8 +112,9 @@ class ViewTest extends PHPUnit\Framework\TestCase
         $webPage = new WebPageGeneric($viewTopology);
         $request = $this->megaFactory->getServer()->getServerRequest('https://example.com/page/open', 'GET');
         $responseFactory = $this->megaFactory->getServer()->getResponseFactory();
-
-        return new TwigAdapter($config, $viewTopology, $webPage, $request, $responseFactory, $cache);
+        $eventDispatcher = $this->getEventDispatcher();
+        
+        return new TwigAdapter($config, $viewTopology, $webPage, $request, $responseFactory, $cache, $eventDispatcher);
     }
 
     public function getViewTopology(): ViewTopology
@@ -135,4 +140,16 @@ class ViewTest extends PHPUnit\Framework\TestCase
         return $twigConfig;
     }
 
+    public function getEventDispatcher() : EventDispatcherInterface {
+        $listenerProvider = new ListenerProviderDefault();
+        return new EventDispatcher($listenerProvider, $this->getContainer());
+    }
+    
+    public function getContainer() : ContainerInterface
+    {
+        $cb = new DI\ContainerBuilder();
+        $cb->addDefinitions();
+        return $cb->build();
+    }
+    
 }
