@@ -8,6 +8,7 @@ use Core\View\ViewTopologyGeneric;
 use Core\Interfaces\ViewAdapter;
 use Core\View\WebPageGeneric;
 use Core\Testing\MegaFactory;
+use Core\View\AssetsCollectionGeneric;
 use Core\EventDispatcher\EventDispatcher;
 use Core\EventDispatcher\Providers\ListenerProviderDefault;
 use Psr\Container\ContainerInterface;
@@ -109,7 +110,9 @@ class ViewTest extends PHPUnit\Framework\TestCase
 
         $config = $this->getTwigConfig();
         $viewTopology = $this->getViewTopology();
-        $webPage = new WebPageGeneric($viewTopology);
+        
+        $assetsCollection = new AssetsCollectionGeneric();
+        $webPage = new WebPageGeneric($viewTopology, $assetsCollection);
         $request = $this->megaFactory->getServer()->getServerRequest('https://example.com/page/open', 'GET');
         $responseFactory = $this->megaFactory->getServer()->getResponseFactory();
         $eventDispatcher = $this->getEventDispatcher();
