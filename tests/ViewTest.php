@@ -1,11 +1,11 @@
 <?php
 
 use Core\View\Twig\TwigAdapter;
-use Core\Interfaces\TwigConfig;
+use Core\Interfaces\TwigConfigInterface;
 use Core\View\Twig\TwigConfigGeneric;
-use Core\Interfaces\ViewTopology;
+use Core\Interfaces\ViewTopologyInterface;
 use Core\View\ViewTopologyGeneric;
-use Core\Interfaces\ViewAdapter;
+use Core\Interfaces\ViewAdapterInterface;
 use Core\View\WebPageGeneric;
 use Core\Testing\MegaFactory;
 use Core\View\AssetsCollectionGeneric;
@@ -102,7 +102,7 @@ class ViewTest extends PHPUnit\Framework\TestCase
         $this->assertEquals('variableonevariabletwovariablethree', $content);
     }
 
-    public function getTwigAdapter(CacheInterface $cache = null): ViewAdapter
+    public function getTwigAdapter(CacheInterface $cache = null): ViewAdapterInterface
     {
         if (empty($cache)) {
             $cache = $this->megaFactory->getCache()->getFileCache();
@@ -120,7 +120,7 @@ class ViewTest extends PHPUnit\Framework\TestCase
         return new TwigAdapter($config, $viewTopology, $webPage, $request, $responseFactory, $cache, $eventDispatcher);
     }
 
-    public function getViewTopology(): ViewTopology
+    public function getViewTopology(): ViewTopologyInterface
     {
         $viewTopology = new ViewTopologyGeneric();
         $viewTopology->setBaseUrl('https://example.com')
@@ -134,7 +134,7 @@ class ViewTest extends PHPUnit\Framework\TestCase
         return $viewTopology;
     }
 
-    public function getTwigConfig(): TwigConfig
+    public function getTwigConfig(): TwigConfigInterface
     {
         $twigConfig = new TwigConfigGeneric();
         $twigConfig->setCacheDir($this->compiledDirectory);

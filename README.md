@@ -26,9 +26,9 @@ composer test
 ## How it works?
 
 ```php
-use Core\Interfaces\ViewTopology;
-use Core\Interfaces\ViewAdapter;
-use Core\Interfaces\TwigConfig;
+use Core\Interfaces\ViewTopologyInterface;
+use Core\Interfaces\ViewAdapterInterface;
+use Core\Interfaces\TwigConfigInterface;
 
 use Core\View\AssetsCollectionGeneric;
 use Core\View\WebPageGeneric;
@@ -127,10 +127,10 @@ use Psr\Http\Message\ServerRequestInterface;
         // {{ scripts_header }}, {{ scripts_footer }}, {{ styles }}, {{ importmap }}
         // {{ title }}, {{ keywords }}, {{ header }}, {{ description }} etc...
 
-        // Get the Twig adapter (Core\Interfaces\ViewAdapter)
+        // Get the Twig adapter (Core\Interfaces\ViewAdapterInterface)
         $viewAdapter = new TwigAdapter($twigConfig, $viewTopology, $webPage, $request, $response, $cache, $logger);
 
-        // Get the view (Core\Interfaces\View)
+        // Get the view (Core\Interfaces\ViewInterface)
         // Also, you can overwrite here template paths and ResponseInterface
         $view = $view->getView();
 

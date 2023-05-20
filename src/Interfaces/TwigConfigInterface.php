@@ -8,7 +8,7 @@ use Twig\Extension\ExtensionInterface;
 use Twig\TwigFunction;
 use Twig\TwigFilter;
 
-interface TwigConfig
+interface TwigConfigInterface
 {
 
     /**

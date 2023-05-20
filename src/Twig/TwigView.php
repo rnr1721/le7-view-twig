@@ -2,8 +2,8 @@
 
 namespace Core\View\Twig;
 
-use Core\Interfaces\View;
-use Core\Interfaces\WebPage;
+use Core\Interfaces\ViewInterface;
+use Core\Interfaces\WebPageInterface;
 use Core\View\ViewTrait;
 use Core\View\ViewException;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -13,17 +13,17 @@ use Psr\SimpleCache\CacheInterface;
 use Twig\Environment;
 use \Throwable;
 
-class TwigView implements View
+class TwigView implements ViewInterface
 {
 
     use ViewTrait;
 
     private Environment $twig;
-    private WebPage $webPage;
+    private WebPageInterface $webPage;
 
     public function __construct(
             Environment $twig,
-            WebPage $webPage,
+            WebPageInterface $webPage,
             ServerRequestInterface $request,
             ResponseInterface $response,
             CacheInterface $cache,

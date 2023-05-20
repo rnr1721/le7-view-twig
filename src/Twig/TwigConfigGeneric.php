@@ -7,10 +7,10 @@ namespace Core\View\Twig;
 use Twig\Extension\ExtensionInterface;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
-use Core\Interfaces\TwigConfig;
+use Core\Interfaces\TwigConfigInterface;
 use Core\View\ViewException;
 
-class TwigConfigGeneric implements TwigConfig
+class TwigConfigGeneric implements TwigConfigInterface
 {
 
     private array $config = [

@@ -4,32 +4,32 @@ namespace Core\View\Twig;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-use Core\Interfaces\View;
-use Core\Interfaces\ViewTopology;
-use Core\Interfaces\ViewAdapter;
-use Core\Interfaces\WebPage;
-use Core\Interfaces\TwigConfig;
+use Core\Interfaces\ViewInterface;
+use Core\Interfaces\ViewTopologyInterface;
+use Core\Interfaces\ViewAdapterInterface;
+use Core\Interfaces\WebPageInterface;
+use Core\Interfaces\TwigConfigInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\SimpleCache\CacheInterface;
 
-class TwigAdapter implements ViewAdapter
+class TwigAdapter implements ViewAdapterInterface
 {
 
-    protected TwigConfig $twigConfig;
-    protected ViewTopology $viewTopology;
-    protected WebPage $webPage;
+    protected TwigConfigInterface $twigConfig;
+    protected ViewTopologyInterface $viewTopology;
+    protected WebPageInterface $webPage;
     protected ServerRequestInterface $request;
     protected ResponseFactoryInterface $responseFactory;
     protected CacheInterface $cache;
     protected EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
-            TwigConfig $twigConfig,
-            ViewTopology $viewTopology,
-            WebPage $webPage,
+            TwigConfigInterface $twigConfig,
+            ViewTopologyInterface $viewTopology,
+            WebPageInterface $webPage,
             ServerRequestInterface $request,
             ResponseFactoryInterface $responseFactory,
             CacheInterface $cache,
@@ -45,7 +45,7 @@ class TwigAdapter implements ViewAdapter
         $this->eventDispatcher = $eventDispatcher;
     }
 
-    public function getView(array|string|null $templatePath = null, ?ResponseInterface $response = null): View
+    public function getView(array|string|null $templatePath = null, ?ResponseInterface $response = null): ViewInterface
     {
 
         if ($response === null) {
